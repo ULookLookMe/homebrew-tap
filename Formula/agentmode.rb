@@ -11,8 +11,8 @@ class Agentmode < Formula
   uses_from_macos "swift" => :build
 
   def install
-    # SwiftPM's own sandbox cannot run inside Homebrew's build sandbox.
-    system "swift", "build", "--disable-sandbox", *std_swift_args
+    # std_swift_args includes --disable-sandbox: SwiftPM's sandbox cannot run inside Homebrew's.
+    system "swift", "build", *std_swift_args
     bin.install ".build/release/agentmode"
     pkgshare.install "scripts/setup-privileges.sh"
   end
